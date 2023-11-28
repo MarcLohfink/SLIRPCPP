@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLIRPWrapper", "SLIRPWrapper.csproj", "{5F1FC10D-7B11-413E-B021-D41E54FA69F9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusee.SLIRP.Common", "..\SLIRP\src\SLIRP\Base\Common\Fusee.SLIRP.Common.csproj", "{9808DB32-6A79-40C2-9355-410875258B06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5F1FC10D-7B11-413E-B021-D41E54FA69F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F1FC10D-7B11-413E-B021-D41E54FA69F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F1FC10D-7B11-413E-B021-D41E54FA69F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9808DB32-6A79-40C2-9355-410875258B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9808DB32-6A79-40C2-9355-410875258B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9808DB32-6A79-40C2-9355-410875258B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9808DB32-6A79-40C2-9355-410875258B06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

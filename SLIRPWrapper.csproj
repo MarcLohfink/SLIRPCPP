@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SLIRP\src\SLIRP\Base\Common\Fusee.SLIRP.Common.csproj" />
+  </ItemGroup>
+
 </Project>
