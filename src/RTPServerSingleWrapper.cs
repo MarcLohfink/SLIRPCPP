@@ -22,10 +22,10 @@ namespace SLIRPWrapper
         public extern static IntPtr initDataProvider(IntPtr prog, IntPtr provider);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr run(IntPtr prog);
+        public extern static IntPtr runRTPServer(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr stop(IntPtr prog);
+        public extern static IntPtr stopRTPServer(IntPtr prog);
 
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
@@ -104,7 +104,7 @@ namespace SLIRPWrapper
             if(!_isInitialized) 
                 return;
 
-            IntPtr resultPtr = run(_nativeRTPServer);
+            IntPtr resultPtr = runRTPServer(_nativeRTPServer);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
@@ -116,7 +116,7 @@ namespace SLIRPWrapper
             if (!_isInitialized)
                 return;
 
-            IntPtr resultPtr = stop(_nativeRTPServer);
+            IntPtr resultPtr = stopRTPServer(_nativeRTPServer);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Stop finished with result: " + result);

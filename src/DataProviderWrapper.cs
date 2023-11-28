@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Fusee.SLIRP.Common;
 using System.Runtime.InteropServices;
 
 
 namespace SLIRPWrapper
 {
-    [StructLayout(LayoutKind.Sequential)]
     public class DataProviderWrapper : IDataProvider<byte[]>
     {
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
@@ -14,13 +13,13 @@ namespace SLIRPWrapper
         public extern static void destoryTestFrameGenerator(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static byte[] provideByteArrayData(IntPtr prog);
+        public extern static byte[] provideTestFrameData(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void generateVideoSettings(IntPtr prog);
+        public extern static void generateTestFrameVideoSettings(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static string setVideoSettings2(IntPtr prog,int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName);
+        public extern static IntPtr setTestFrameVideoSettings2(IntPtr prog,int srcWidth, int srcHeight, int srcFrameRate, IntPtr srcPxlFmtName);
 
 
         private IntPtr _nativeProvider;
@@ -39,7 +38,7 @@ namespace SLIRPWrapper
                 destoryTestFrameGenerator(_nativeProvider);
 
             _nativeProvider = factoryTestFrameGenerator();
-            generateVideoSettings(_nativeProvider);
+            generateTestFrameVideoSettings(_nativeProvider);
 
             _isInitialized = true;
         }
@@ -59,7 +58,7 @@ namespace SLIRPWrapper
             if (!_isInitialized)
                 return new byte[0];
 
-            return provideByteArrayData(_nativeProvider);
+            return provideTestFrameData(_nativeProvider);
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)
@@ -67,9 +66,13 @@ namespace SLIRPWrapper
             if(!_isInitialized) 
                 return;
 
-            string result = setVideoSettings2(_nativeProvider, srcWidth, srcHeight, srcFrameRate, srcPxlFmtName);
+            IntPtr stringPtr = Marshal.StringToHGlobalAnsi(srcPxlFmtName);
+
+            IntPtr rPtr = setTestFrameVideoSettings2(_nativeProvider, srcWidth, srcHeight, srcFrameRate, stringPtr);
+            string result = Marshal.PtrToStringAnsi(rPtr);
 
             Console.WriteLine("[DataProviderWrapper] SetVideoSettings result: "+ result);
         }
     }
+    
 }
