@@ -11,15 +11,15 @@ namespace SLIRPWrapper
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static void destroyBufferController(IntPtr intPtr);
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void bufferData(IntPtr intPtr, byte[] data);
+        public extern static void bufferDataInBufferController(IntPtr intPtr, byte[] data);
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static byte[] provideByteArrayData(IntPtr intPtr);
+        public extern static byte[] provideBufferControllerData(IntPtr intPtr);
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void setVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, IntPtr srcPxlFmtName);
+        public extern static void setBufferControllerVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, IntPtr srcPxlFmtName);
 
         IntPtr _nativeInstance;
 
-        public IntPtr NativeInstance => _nativeInstance;
+        public IntPtr NativeProviderInstance => _nativeInstance;
 
         public BufferControllerWrapper(int size)
         {
@@ -38,12 +38,16 @@ namespace SLIRPWrapper
 
         public byte[] ProvideData()
         {
-            return provideByteArrayData(_nativeInstance);
+            return provideBufferControllerData(_nativeInstance);
         }
 
         public void BufferData(byte[] data)
         {
-            bufferData(_nativeInstance, data);
+            bufferDataInBufferController(_nativeInstance, data);
+        }
+        public byte[] PeekLast()
+        {
+            return ProvideData();
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)
@@ -55,5 +59,7 @@ namespace SLIRPWrapper
         {
             destroyBufferController(_nativeInstance);
         }
+
+
     }
 }

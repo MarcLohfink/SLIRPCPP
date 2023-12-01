@@ -23,7 +23,7 @@ namespace SLIRPWrapper
             DataProviderWrapper dataProviderWrapper = new DataProviderWrapper();
             dataProviderWrapper.SetVideoSettings(srcWidth, srcHeight, frameRate, pxtFmtName);
 
-            IntPtr DataProvider = dataProviderWrapper.NativeProvider;
+            IntPtr DataProvider = dataProviderWrapper.NativeProviderInstance;
 
             RTPServerSingleWrapper _rtpServer = new RTPServerSingleWrapper();
 

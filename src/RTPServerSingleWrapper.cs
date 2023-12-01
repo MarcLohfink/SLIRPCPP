@@ -22,11 +22,13 @@ namespace SLIRPWrapper
         public extern static IntPtr initDataProvider(IntPtr prog, IntPtr provider);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr runRTPServer(IntPtr prog);
+        public extern static IntPtr runRTPServer(IntPtr prog, int dataSize);
+
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr runRTPServerTest(IntPtr prog, int dataSize, int srcWidth, int srcHeight, string srcPxlFmt);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr stopRTPServer(IntPtr prog);
-
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr initVideoDummy();
@@ -99,12 +101,23 @@ namespace SLIRPWrapper
             Console.WriteLine("[RTPServerWrapper] Init Data Provider finished with result: " + result);
         }
 
+        public void RunTest(int dataSize, int srcWidth, int srcHeight, string srcPxlName)
+        {
+            if (!_isInitialized)
+                return;
+
+            IntPtr resultPtr = runRTPServerTest(_nativeRTPServer, dataSize, srcWidth, srcHeight, srcPxlName);
+            string result = Marshal.PtrToStringAnsi(resultPtr);
+
+            Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
+        }
+
         public void Run()
         {
             if(!_isInitialized) 
                 return;
 
-            IntPtr resultPtr = runRTPServer(_nativeRTPServer);
+            IntPtr resultPtr = runRTPServer(_nativeRTPServer, 3);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);

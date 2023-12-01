@@ -25,7 +25,7 @@ namespace SLIRPWrapper
         private IntPtr _nativeProvider;
         private bool _isInitialized;
 
-        public IntPtr NativeProvider => _nativeProvider;
+        public IntPtr NativeProviderInstance => _nativeProvider;
 
         public DataProviderWrapper()
         {
