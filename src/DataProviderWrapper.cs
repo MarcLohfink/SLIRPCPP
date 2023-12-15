@@ -7,10 +7,10 @@ namespace SLIRPWrapper
     public class DataProviderWrapper : IDataProvider<byte[]>
     {
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr factoryTestFrameGenerator();
+        public extern static IntPtr factoryTestPatternProvider();
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void destoryTestFrameGenerator(IntPtr prog);
+        public extern static void destoryTestPatternProvider(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static byte[] provideTestFrameData(IntPtr prog);
@@ -35,9 +35,9 @@ namespace SLIRPWrapper
         public void InitProvider()
         {
             if (_isInitialized)
-                destoryTestFrameGenerator(_nativeProvider);
+                destoryTestPatternProvider(_nativeProvider);
 
-            _nativeProvider = factoryTestFrameGenerator();
+            _nativeProvider = factoryTestPatternProvider();
             generateTestFrameVideoSettings(_nativeProvider);
 
             _isInitialized = true;
@@ -48,7 +48,7 @@ namespace SLIRPWrapper
             if (!_isInitialized)
                 return;
 
-            destoryTestFrameGenerator(_nativeProvider);
+            destoryTestPatternProvider(_nativeProvider);
 
             _isInitialized = false;
         }

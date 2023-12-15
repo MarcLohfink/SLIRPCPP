@@ -101,12 +101,12 @@ namespace SLIRPWrapper
             Console.WriteLine("[RTPServerWrapper] Init Data Provider finished with result: " + result);
         }
 
-        public void RunTest(int dataSize, int srcWidth, int srcHeight, string srcPxlName)
+        public void RunTest(int mode, int srcWidth, int srcHeight, string srcPxlName)
         {
             if (!_isInitialized)
                 return;
 
-            IntPtr resultPtr = runRTPServerTest(_nativeRTPServer, dataSize, srcWidth, srcHeight, srcPxlName);
+            IntPtr resultPtr = runRTPServerTest(_nativeRTPServer, mode, srcWidth, srcHeight, srcPxlName);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
@@ -117,7 +117,15 @@ namespace SLIRPWrapper
             if(!_isInitialized) 
                 return;
 
-            IntPtr resultPtr = runRTPServer(_nativeRTPServer, 3);
+            //for testing purposes give Fusee time to start
+            long duration = 4000000000;
+            long t = 0;
+            while (t <= duration)
+            {
+                t++;
+            }
+
+            IntPtr resultPtr = runRTPServer(_nativeRTPServer, 1);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
