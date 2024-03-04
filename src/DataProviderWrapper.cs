@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SLIRPWrapper
 {
-    public class DataProviderWrapper : IDataProvider<byte[]>
+    public class DataProviderWrapper : IVideoDataProvider<byte[]>
     {
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr factoryTestPatternProvider();

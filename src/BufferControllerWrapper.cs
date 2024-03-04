@@ -4,7 +4,7 @@ using Fusee.SLIRP.Common;
 
 namespace SLIRPWrapper
 {
-    public class BufferControllerWrapper : IDataProvider<byte[]>, IDataBuffer<byte[]>, IDisposable
+    public class BufferControllerWrapper : IVideoDataProvider<byte[]>, IDataBuffer<byte[]>, IDisposable
     {
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr createBufferController(int size);
