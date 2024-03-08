@@ -22,7 +22,13 @@ namespace SLIRPWrapper
         public extern static IntPtr initDataProvider(IntPtr prog, IntPtr provider);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr runRTPServer(IntPtr prog, int dataSize);
+        public extern static IntPtr runRTPServer(IntPtr prog, int mode);
+
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr runRTPServer_cpuhw(IntPtr prog, int mode);
+
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr runRTPServer_hw(IntPtr prog);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr runRTPServerTest(IntPtr prog, int dataSize, int srcWidth, int srcHeight, string srcPxlFmt);
@@ -101,17 +107,6 @@ namespace SLIRPWrapper
             Console.WriteLine("[RTPServerWrapper] Init Data Provider finished with result: " + result);
         }
 
-        public void RunTest(int mode, int srcWidth, int srcHeight, string srcPxlName)
-        {
-            if (!_isInitialized)
-                return;
-
-            IntPtr resultPtr = runRTPServerTest(_nativeRTPServer, mode, srcWidth, srcHeight, srcPxlName);
-            string result = Marshal.PtrToStringAnsi(resultPtr);
-
-            Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
-        }
-
         public void Run()
         {
             if(!_isInitialized) 
@@ -126,6 +121,55 @@ namespace SLIRPWrapper
             }
 
             IntPtr resultPtr = runRTPServer(_nativeRTPServer, 1);
+            string result = Marshal.PtrToStringAnsi(resultPtr);
+
+            Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
+        }
+
+        public void RunCPUHW()
+        {
+            if (!_isInitialized)
+                return;
+
+            //for testing purposes give Fusee time to start
+            long duration = 4000000000;
+            long t = 0;
+            while (t <= duration)
+            {
+                t++;
+            }
+
+            IntPtr resultPtr = runRTPServer_cpuhw(_nativeRTPServer,0);
+            string result = Marshal.PtrToStringAnsi(resultPtr);
+
+            Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
+        }
+
+        public void RunHW()
+        {
+            if (!_isInitialized)
+                return;
+
+            //for testing purposes give Fusee time to start
+            long duration = 4000000000;
+            long t = 0;
+            while (t <= duration)
+            {
+                t++;
+            }
+
+            IntPtr resultPtr = runRTPServer_hw(_nativeRTPServer);
+            string result = Marshal.PtrToStringAnsi(resultPtr);
+
+            Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
+        }
+
+        public void RunTest(int mode, int srcWidth, int srcHeight, string srcPxlName)
+        {
+            if (!_isInitialized)
+                return;
+
+            IntPtr resultPtr = runRTPServerTest(_nativeRTPServer, mode, srcWidth, srcHeight, srcPxlName);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
