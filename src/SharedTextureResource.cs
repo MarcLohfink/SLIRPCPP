@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.InteropServices;
 
-namespace SLIRPWrapper.src
+namespace SLIRPWrapper
 {
     /// <summary>
     /// API class for C++ SharedTextureResource class

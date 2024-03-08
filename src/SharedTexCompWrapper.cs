@@ -1,9 +1,8 @@
 ﻿
 using Fusee.SLIRP.Common;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace SLIRPWrapper.src
+namespace SLIRPWrapper
 {
     /// <summary>
     /// API for the C++ SharedVideoTexBufComp class. 

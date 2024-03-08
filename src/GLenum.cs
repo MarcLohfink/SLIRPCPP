@@ -1,4 +1,4 @@
-﻿namespace SLIRPWrapper.src
+﻿namespace SLIRPWrapper
 {
     public enum GLenum : uint
     {

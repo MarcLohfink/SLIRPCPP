@@ -1,7 +1,7 @@
 ﻿using Fusee.SLIRP.Common;
 using System.Runtime.InteropServices;
 
-namespace SLIRPWrapper.src
+namespace SLIRPWrapper
 {
     /// <summary>
     /// API for the C++ BufferComposition class. 

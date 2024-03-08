@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace SLIRPWrapper.src
+namespace SLIRPWrapper
 {
     public class CudaUtility
     {
