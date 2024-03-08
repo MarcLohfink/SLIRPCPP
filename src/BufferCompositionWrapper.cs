@@ -1,5 +1,4 @@
-﻿using Fusee.SLIRP.Common;
-using SLIRP.Common;
+﻿using SLIRP.Common;
 using System.Runtime.InteropServices;
 
 namespace SLIRPWrapper

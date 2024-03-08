@@ -8,10 +8,12 @@
 		<BaseOutputPath>$(SolutionDir)bin</BaseOutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <Platforms>AnyCPU;x64</Platforms>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SLIRP\src\SLIRP\Base\Common\Fusee.SLIRP.Common.csproj" />
+    <ProjectReference Include="..\..\SLIRP\Base\Common\SLIRP.Common.csproj" />
   </ItemGroup>
 
+  
 </Project>
