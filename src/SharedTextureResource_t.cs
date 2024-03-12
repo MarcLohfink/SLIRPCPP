@@ -11,6 +11,8 @@ namespace SLIRPWrapper
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr factorySharedTexResourceByTexId_t(IntPtr glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr factorySharedTexResourceByTexFBId_t(IntPtr glFBufferId, IntPtr glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);        
+        [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static void destroySharedTexResource_t(IntPtr instance);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static int getGlTextureId_t(IntPtr instance);
@@ -26,6 +28,10 @@ namespace SLIRPWrapper
         public extern static GLenum getGlFormat_t(IntPtr instance);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static GLenum getGlType_t(IntPtr instance);
+
+        [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
+        public extern static bool checkSharedTexMapping_t(IntPtr instance);
+
 
         public IntPtr NativeInstance { get; private set; }
 
@@ -47,6 +53,11 @@ namespace SLIRPWrapper
         {
             NativeInstance = factorySharedTexResourceByTexId_t(glTexId, glImgType, width, height, glInternalFormat, glFormat, glType);
         }
+        public SharedTextureResource_t(int glFBufferId, int glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType)
+        {
+            NativeInstance = factorySharedTexResourceByTexFBId_t(glFBufferId,glTexId, glImgType, width, height, glInternalFormat, glFormat, glType);
+        }
+        
 
         public void Dispose()
         {
@@ -86,5 +97,11 @@ namespace SLIRPWrapper
         {
             return getGlType_t(NativeInstance);
         }
+        /// <returns>if resource could be mapped/returns>
+        public bool CheckSharedTexMapping()
+        {
+            return checkSharedTexMapping_t(NativeInstance);
+        }
+        
     }
 }
