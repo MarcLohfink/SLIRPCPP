@@ -139,7 +139,7 @@ namespace SLIRPWrapper
                 t++;
             }
 
-            IntPtr resultPtr = runRTPServer_cpuhw(_nativeRTPServer,0);
+            IntPtr resultPtr = runRTPServer_cpuhw(_nativeRTPServer,1);
             string result = Marshal.PtrToStringAnsi(resultPtr);
 
             Console.WriteLine("[RTPServerWrapper] Run finished with result: " + result);
