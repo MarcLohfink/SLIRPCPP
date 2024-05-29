@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SLIRP.SLIRPWrapper.Example": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
