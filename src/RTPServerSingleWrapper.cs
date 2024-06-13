@@ -20,6 +20,8 @@ namespace SLIRPWrapper
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr initDataProvider(IntPtr prog, IntPtr provider);
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr initHWDataProvider(IntPtr prog, IntPtr provider);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr runRTPServer(IntPtr prog, int mode);
@@ -107,6 +109,19 @@ namespace SLIRPWrapper
             Console.WriteLine("[RTPServerWrapper] Init Data Provider finished with result: " + result);
         }
 
+        public void InitHWDataProvider(IntPtr dataProvider)
+        {
+            if (!_isInitialized)
+                return;
+
+            IntPtr resultPtr = initHWDataProvider(_nativeRTPServer, dataProvider);
+            string result = Marshal.PtrToStringAnsi(resultPtr);
+
+            _nativeDataProvider = dataProvider;
+
+            Console.WriteLine("[RTPServerWrapper] Init Data Provider finished with result: " + result);
+        }
+        
         public void Run()
         {
             if(!_isInitialized) 
@@ -151,7 +166,7 @@ namespace SLIRPWrapper
                 return;
 
             //for testing purposes give Fusee time to start
-            long duration = 4000000000;
+            long duration = 400000000;
             long t = 0;
             while (t <= duration)
             {

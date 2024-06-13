@@ -29,8 +29,8 @@ namespace SLIRPWrapper
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static GLenum getGlType_t(IntPtr instance);
 
-        [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
-        public extern static bool checkSharedTexMapping_t(IntPtr instance);
+        //[DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
+        //public extern static bool checkSharedTexMapping_t(IntPtr instance);
 
 
         public IntPtr NativeInstance { get; private set; }
@@ -97,11 +97,11 @@ namespace SLIRPWrapper
         {
             return getGlType_t(NativeInstance);
         }
-        /// <returns>if resource could be mapped/returns>
-        public bool CheckSharedTexMapping()
-        {
-            return checkSharedTexMapping_t(NativeInstance);
-        }
+        /// <returns>if resource could be mapped </returns>
+        //public bool CheckSharedTexMapping()
+        //{
+        //    return checkSharedTexMapping_t(NativeInstance);
+        //}
         
     }
 }

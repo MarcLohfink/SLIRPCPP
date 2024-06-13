@@ -1,23 +1,22 @@
 ﻿
 using SLIRP.Common;
-using SLIRP.Common;
 using System.Runtime.InteropServices;
 
 namespace SLIRPWrapper
 {
     /// <summary>
-    /// API for the C++ SharedTexCompWrapper_t class. 
+    /// API for the C++ SharedVideoTexBufComp_t class. 
     /// </summary>
-    public class SharedTexCompWrapper_t : IVideoDataProvider<IntPtr>, IDataBuffer<IntPtr>
+    public class SharedVideoTexBufComp_t : IVideoDataProvider<IntPtr>, IDataBuffer<IntPtr>
     {
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr factorySharedVideoTexBufferComposition_t(int capacity, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel);
+        public extern static IntPtr factorySharedVideoTexBufComp_t(int capacity, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel);
 
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr factorySharedVideoTexBufferCompositionGLTexInjection_t(uint[] glTexIds, int capacity, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel);
 
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void deleteSharedVideoTexBufferComposition_t(IntPtr intPtr);
+        public extern static void deleteSharedVideoTexBufComp_t(IntPtr intPtr);
 
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
         public extern static void bufferDataInSharedVideoTexBufComp_t(IntPtr intPtr, IntPtr dstGPUAdress);
@@ -37,12 +36,12 @@ namespace SLIRPWrapper
         IntPtr _nativeInstance;
         public IntPtr NativeProviderInstance => _nativeInstance;
 
-        public SharedTexCompWrapper_t(int capacity, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel)
+        public SharedVideoTexBufComp_t(int capacity, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel)
         {
-            _nativeInstance = factorySharedVideoTexBufferComposition_t(capacity, glImgType, width, height, glInternalFormat, glFormat, glType, channel);
+            _nativeInstance = factorySharedVideoTexBufComp_t(capacity, glImgType, width, height, glInternalFormat, glFormat, glType, channel);
         }
 
-        public SharedTexCompWrapper_t(uint[] glTexIds, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel)
+        public SharedVideoTexBufComp_t(uint[] glTexIds, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType, int channel)
         {
             _nativeInstance = factorySharedVideoTexBufferCompositionGLTexInjection_t(glTexIds, glTexIds.Length, glImgType, width, height, glInternalFormat, glFormat, glType, channel);
         }
@@ -54,7 +53,7 @@ namespace SLIRPWrapper
 
         public void DestroyProvider()
         {
-            deleteSharedVideoTexBufferComposition_t(_nativeInstance);
+            deleteSharedVideoTexBufComp_t(_nativeInstance);
         }
 
         public IntPtr ProvideData()
