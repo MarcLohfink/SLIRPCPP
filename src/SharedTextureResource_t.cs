@@ -9,9 +9,9 @@ namespace SLIRPWrapper
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr factorySharedTexResourceByPtr_t(IntPtr anotherInstance);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr factorySharedTexResourceByTexId_t(IntPtr glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);
+        public extern static IntPtr factorySharedTexResourceByTexId_t(uint glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
-        public extern static IntPtr factorySharedTexResourceByTexFBId_t(IntPtr glFBufferId, IntPtr glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);        
+        public extern static IntPtr factorySharedTexResourceByTexFBId_t(IntPtr glFBufferId, uint glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType);        
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
         public extern static void destroySharedTexResource_t(IntPtr instance);
         [DllImport("OpenGLCudaInterOp", CallingConvention = CallingConvention.Cdecl)]
@@ -49,11 +49,11 @@ namespace SLIRPWrapper
             NativeInstance = factorySharedTexResourceByPtr_t(anotherInstance.NativeInstance);
         }
 
-        public SharedTextureResource_t(int glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType)
+        public SharedTextureResource_t(uint glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType)
         {
             NativeInstance = factorySharedTexResourceByTexId_t(glTexId, glImgType, width, height, glInternalFormat, glFormat, glType);
         }
-        public SharedTextureResource_t(int glFBufferId, int glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType)
+        public SharedTextureResource_t(int glFBufferId, uint glTexId, GLenum glImgType, int width, int height, int glInternalFormat, GLenum glFormat, GLenum glType)
         {
             NativeInstance = factorySharedTexResourceByTexFBId_t(glFBufferId,glTexId, glImgType, width, height, glInternalFormat, glFormat, glType);
         }

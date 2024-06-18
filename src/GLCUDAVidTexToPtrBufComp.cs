@@ -34,11 +34,20 @@ namespace SLIRPWrapper.src
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr setGLCUDAVidTexToPtrBufCompVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, string srcPxlFmtName);
 
+        [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr peekLastGLCUDAVidTexData(IntPtr intPtr);
+
+
         IntPtr _nativeInstance;
         public IntPtr NativeProviderInstance => _nativeInstance;
 
+        int _width, _height, _channel;
+
         public GLCUDAVidTexToPtrBufComp(int capacity, int width, int height, int channel)
         {
+            _width = width;
+            _height = height;
+            _channel = channel;
             _nativeInstance = factoryGLCUDAVidTexToPtrBufComp(capacity, width, height, channel);
         }
 
@@ -67,6 +76,18 @@ namespace SLIRPWrapper.src
         public IntPtr PeekLast()
         {
             throw new NotImplementedException("Not supported.");
+        }
+
+        public byte[] PeekLastData()
+        {
+            IntPtr unmanagedPointer = peekLastGLCUDAVidTexData(_nativeInstance);
+
+            //int size = (_width + (_width/2)) * _height; // YUV size
+            int size = _width * _height * _channel;
+            byte[] managedArray = new byte[size];
+
+            Marshal.Copy(unmanagedPointer, managedArray, 0, size);
+            return managedArray;
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)

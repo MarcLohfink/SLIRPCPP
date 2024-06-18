@@ -32,6 +32,8 @@ namespace SLIRPWrapper
         [DllImport("FFmpegNetwork.dll", CallingConvention = CallingConvention.Cdecl)]
         public extern static IntPtr setSharedVideoTexBufCompVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, string srcPxlFmtName);
 
+        public extern static byte[] peekLast(IntPtr intPtr);
+
         IntPtr _nativeInstance;
         public IntPtr NativeProviderInstance => _nativeInstance;
 
@@ -69,6 +71,11 @@ namespace SLIRPWrapper
         public IntPtr PeekLast()
         {
             throw new NotImplementedException("Not supported.");
+        }
+
+        public byte[] PeekLastData()
+        {
+            return peekLast(_nativeInstance);
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)

@@ -17,6 +17,9 @@ namespace SLIRPWrapper
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static void setBufferControllerVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, IntPtr srcPxlFmtName);
 
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static byte[] peekLast(IntPtr intPtr);
+
         IntPtr _nativeInstance;
 
         public IntPtr NativeProviderInstance => _nativeInstance;
@@ -48,6 +51,11 @@ namespace SLIRPWrapper
         public byte[] PeekLast()
         {
             return ProvideData();
+        }
+
+        public byte[] PeekLastData()
+        {
+            return peekLast(_nativeInstance);
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)

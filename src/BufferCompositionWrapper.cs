@@ -15,7 +15,7 @@ namespace SLIRPWrapper
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static void bufferDataInTestBufferComposition(IntPtr intPtr, byte[] data);
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
-        public extern static byte[] provideTestBufferCompositionData(IntPtr intPtr);
+        public extern static IntPtr provideTestBufferCompositionData(IntPtr intPtr);
 
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static byte[] provideByCopyTestBufferCompositionData(IntPtr intPtr);
@@ -23,12 +23,18 @@ namespace SLIRPWrapper
         [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
         public extern static void setTestBufferCompositionVideoSettings(IntPtr intPtr, int srcWidth, int srcHeight, int srcFramerate, string srcPxlFmtName);
 
+        [DllImport("FFmpegNetwork", CallingConvention = CallingConvention.Cdecl)]
+        public extern static IntPtr peekLastTestBufferComposition(IntPtr intPtre);
+
         IntPtr _nativeInstance;
 
         public IntPtr NativeProviderInstance => _nativeInstance;
 
+        private int _bufferSize;
+
         public BufferCompositionWrapper(int size, int bufferSize)
         {
+            _bufferSize = bufferSize;
             _nativeInstance = createTestBufferComposition(size, bufferSize);
         }
 
@@ -49,7 +55,10 @@ namespace SLIRPWrapper
 
         public byte[] ProvideData()
         {
-            return provideTestBufferCompositionData(_nativeInstance);
+            IntPtr unmanagedPointer = provideTestBufferCompositionData(_nativeInstance);
+            byte[] managedArray = new byte[_bufferSize];
+            Marshal.Copy(unmanagedPointer, managedArray, 0, _bufferSize);
+            return managedArray;
         }
 
         public void BufferData(byte[] data)
@@ -59,6 +68,16 @@ namespace SLIRPWrapper
         public byte[] PeekLast()
         {
             return ProvideData();
+        }
+
+        public byte[] PeekLastData()
+        {
+            IntPtr unmanagedPointer = provideTestBufferCompositionData(_nativeInstance);
+            byte[] managedArray = new byte[_bufferSize];
+
+            Marshal.Copy(unmanagedPointer, managedArray, 0, _bufferSize);
+
+            return managedArray;
         }
 
         public void SetVideoSettings(int srcWidth, int srcHeight, int srcFrameRate, string srcPxlFmtName)
