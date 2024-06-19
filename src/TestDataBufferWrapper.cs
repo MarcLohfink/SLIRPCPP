@@ -43,7 +43,7 @@ namespace SLIRPWrapper
             return new byte[0];
         }
 
-        public byte[] PeekLastData()
+        public byte[] PeekLastData(int size)
         {
             return PeekLast();
         }

@@ -76,7 +76,7 @@ namespace SLIRPWrapper
             throw new NotImplementedException("Not supported.");
         }
 
-        public byte[] PeekLastData()
+        public byte[] PeekLastData(int size)
         {
             return peekLastData(_nativeInstance);
         }

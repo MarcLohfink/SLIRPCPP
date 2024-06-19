@@ -70,12 +70,12 @@ namespace SLIRPWrapper
             return ProvideData();
         }
 
-        public byte[] PeekLastData()
+        public byte[] PeekLastData(int size)
         {
             IntPtr unmanagedPointer = provideTestBufferCompositionData(_nativeInstance);
-            byte[] managedArray = new byte[_bufferSize];
+            byte[] managedArray = new byte[size];
 
-            Marshal.Copy(unmanagedPointer, managedArray, 0, _bufferSize);
+            Marshal.Copy(unmanagedPointer, managedArray, 0, size);
 
             return managedArray;
         }

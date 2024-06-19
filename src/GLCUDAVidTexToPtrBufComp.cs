@@ -78,12 +78,10 @@ namespace SLIRPWrapper.src
             throw new NotImplementedException("Not supported.");
         }
 
-        public byte[] PeekLastData()
+        public byte[] PeekLastData(int size)
         {
             IntPtr unmanagedPointer = peekLastGLCUDAVidTexData(_nativeInstance);
-
-            //int size = (_width + (_width/2)) * _height; // YUV size
-            int size = _width * _height * _channel;
+            
             byte[] managedArray = new byte[size];
 
             Marshal.Copy(unmanagedPointer, managedArray, 0, size);
