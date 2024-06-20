@@ -127,13 +127,13 @@ namespace SLIRPWrapper
             if(!_isInitialized) 
                 return;
 
-            //for testing purposes give Fusee time to start
-            long duration = 4000000000;
-            long t = 0;
-            while (t <= duration)
-            {
-                t++;
-            }
+            ////for testing purposes give Fusee time to start
+            //long duration = 4000000000;
+            //long t = 0;
+            //while (t <= duration)
+            //{
+            //    t++;
+            //}
 
             IntPtr resultPtr = runRTPServer(_nativeRTPServer, 1);
             string result = Marshal.PtrToStringAnsi(resultPtr);
@@ -165,13 +165,13 @@ namespace SLIRPWrapper
             if (!_isInitialized)
                 return;
 
-            //for testing purposes give Fusee time to start
-            long duration = 400000000;
-            long t = 0;
-            while (t <= duration)
-            {
-                t++;
-            }
+            ////for testing purposes give Fusee time to start
+            //long duration = 400000000;
+            //long t = 0;
+            //while (t <= duration)
+            //{
+            //    t++;
+            //}
 
             IntPtr resultPtr = runRTPServer_hw(_nativeRTPServer);
             string result = Marshal.PtrToStringAnsi(resultPtr);
